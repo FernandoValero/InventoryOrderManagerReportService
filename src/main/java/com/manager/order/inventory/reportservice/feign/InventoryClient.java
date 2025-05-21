@@ -9,27 +9,27 @@ import org.springframework.web.bind.annotation.RequestParam;
 @FeignClient(name = "inventory-service")
 public interface InventoryClient {
 
-    @GetMapping("/api/sales/between")
+    @GetMapping("/between")
     SalesResponseDto getSalesBetweenDates(
             @RequestParam("startDate") String startDate,
             @RequestParam("endDate") String endDate
     );
 
-    @GetMapping("/api/v1/sales/client/{clientId}")
-    SalesResponseDto getSalesByClientById(@PathVariable("clientId") Integer id);
+    @GetMapping("/sales/client/{clientId}")
+    SalesResponseDto getSalesByClientId(@PathVariable("clientId") Integer id);
 
-    @GetMapping("api/v1/sales/user/{userId}")
+    @GetMapping("/sales/user/{userId}")
     SalesResponseDto getSalesByUserId(@PathVariable("userId") Integer id);
 
-    @GetMapping("/api/v1/sales/month")
-    SalesResponseDto getSalesByMonth(int month);
+    @GetMapping("/sales/month")
+    SalesResponseDto getSalesByMonth(@RequestParam("month") int month);
 
-    @GetMapping("/api/v1/sales/year")
-    SalesResponseDto getSalesByYear(int year);
+    @GetMapping("/sales/year")
+    SalesResponseDto getSalesByYear(@RequestParam("year") int year);
 
-    @GetMapping("/api/v1/sales/product/{productId}")
-    SalesResponseDto getProductById(@PathVariable("productId") Integer id);
+    @GetMapping("/sales/product/{productId}")
+    SalesResponseDto getSalesByProductId(@PathVariable("productId") Integer id);
 
-    @GetMapping("/api/v1/sales/{id}")
+    @GetMapping("/sales/{id}")
     SalesResponseDto getSalesById(@PathVariable("id") Integer id);
 }
