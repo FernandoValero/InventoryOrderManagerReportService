@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${title}">Reporte de Ventas</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        h1 { color: #2c3e50; text-align: center; }
+        .sale { margin-bottom: 30px; border: 1px solid #ddd; padding: 15px; }
+        .sale-header { display: flex; justify-content: space-between; }
+        .sale-id { font-weight: bold; }
+        .sale-date { color: #666; }
+        .sale-total { font-weight: bold; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th { background-color: #3498db; color: white; padding: 8px; text-align: left; }
+        td { padding: 8px; border-bottom: 1px solid #eee; }
+        .product-code { font-family: monospace; }
+        .grand-total { font-size: 1.2em; text-align: right; margin-top: 20px; }
+    </style>
+</head>
+<body>
+<h1 th:text="${title}">Reporte de Ventas</h1>
+
+<div th:each="sale : ${sales}" class="sale">
+    <div class="sale-header">
+        <span class="sale-id">Venta #<span th:text="${sale.id}"></span></span>
+        <span class="sale-date" th:text="${sale.saleDate}"></span>
+    </div>
+
+    <div>Cliente ID: <span th:text="${sale.clientId}"></span></div>
+    <div>Usuario ID: <span th:text="${sale.userId}"></span></div>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Producto</th>
+            <th>Código</th>
+            <th>Cantidad</th>
+            <th>P. Unitario</th>
+            <th>Total</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="detail : ${sale.saleDetail}">
+            <td th:text="${detail.product.name}"></td>
+            <td class="product-code" th:text="${detail.product.number}"></td>
+            <td th:text="${detail.amount}"></td>
+            <td th:text="${#numbers.formatDecimal(detail.product.price, 1, 2)}"></td>
+            <td th:text="${#numbers.formatDecimal(detail.amount * detail.product.price, 1, 2)}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div class="sale-total" style="text-align: right;">
+        Total Venta: <span th:text="${#numbers.formatDecimal(sale.totalPrice, 1, 2)}"></span>
+    </div>
+</div>
+
+<div class="grand-total">
+    <strong>TOTAL GENERAL: </strong>
+    <span th:text="${#numbers.formatDecimal(totalSales, 1, 2)}"></span>
+</div>
+
+<div style="margin-top: 30px; font-size: 0.8em; text-align: center;">
+    Generado el: <span th:text="${#dates.format(#dates.createNow(), 'dd/MM/yyyy HH:mm')}"></span>
+</div>
+</body>
+</html>
