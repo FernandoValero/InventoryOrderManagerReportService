@@ -21,14 +21,10 @@ public class SwaggerConfig {
         return new OpenAPI()
                 .info(new Info()
                         .title("API de " + applicationName)
-                        .description("Documentación del servicio " + applicationName)
-                        .version("1.0")
-                        .contact(new Contact()
-                                .name("Tu Empresa")
-                                .email("contacto@tuempresa.com")
-                                .url("https://www.tuempresa.com")))
+                        .description("Documentación del servicio " + applicationName + ". Servicios encargado de generar reportes de ventas en formato PDF y Excel")
+                        .version("1.0"))
                 .servers(Arrays.asList(
-                        new Server().url("/").description("Report Service")
+                        new Server().url("/api/v1/").description("Report Service")
                 ));
     }
 }
