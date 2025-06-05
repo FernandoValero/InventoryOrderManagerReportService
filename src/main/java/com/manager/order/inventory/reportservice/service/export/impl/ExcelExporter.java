@@ -88,19 +88,16 @@ public class ExcelExporter implements ReportExporter<List<SaleDto>> {
             for (SaleDetailDto detail : sale.getSaleDetail()) {
                 Row row = sheet.createRow(rowNum++);
 
-                // Datos de la venta
                 createCell(row, 0, sale.getId(), null);
                 createCell(row, 1, sale.getSaleDate(), dateStyle);
                 createCell(row, 2, sale.getClientId(), null);
 
-                // Datos del producto
                 ProductDto product = detail.getProduct();
                 createCell(row, 3, product.getName(), null);
                 createCell(row, 4, product.getNumber(), null);
                 createCell(row, 5, detail.getAmount(), null);
                 createCell(row, 6, product.getPrice(), currencyStyle);
 
-                // Cálculos
                 double itemTotal = detail.getAmount() * product.getPrice();
                 createCell(row, 7, itemTotal, currencyStyle);
                 createCell(row, 8, sale.getTotalPrice(), currencyStyle);
